@@ -17,14 +17,17 @@ class App extends Component {
       ]
     };
   }
+  toggleComplete(index) {
+    console.log(index);
+  }
   render() {
     return (
       <div className="App">
       <ul>
-      //Now, we have to render or show the initial state of the component with the above todo list
+      //Now we have to render or show the initial state of the component with the above todo list
       { this.state.todos.map( (todo, index) =>
-            
-            <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted}/>
+
+            <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={ () => this.toggleComplete(index) }/>
           )}
       </ul>
 
