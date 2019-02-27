@@ -31,7 +31,7 @@ class App extends Component {
  }
 
   toggleComplete(index) {
-console.log(index);
+
     const todos = this.state.todos.slice();
     const todo = todos[index];
     todo.isCompleted = todo.isCompleted ? false : true;
@@ -40,9 +40,13 @@ console.log(index);
   }
 
   deleteTodo(index){
-
+  console.log(this.state);
+  const remainingTodos =this.state.todos.filter(todo => (this.state.todos.indexOf(todo) !== index));
+  this.setState({ todos: remainingTodos});
 
   }
+
+
 
   render() {
     return (
@@ -51,7 +55,7 @@ console.log(index);
       //Now we have to render or show the initial state of the component with the above todo list
       { this.state.todos.map( (todo, index) =>
 
-        <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={ () => this.toggleComplete(index)}/>)}
+        <ToDo key={index} deleteTodo={this.deleteTodo} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={ () => this.toggleComplete(index)}/>)}
       </ul>
        <input type="text" value={ this.state.newTodoDescription }onChange={ (e) => this.handleChange(e) }/>
           <input onClick={ (e) => this.handleSubmit(e) } type="button" name="submit" value="Submit"/>
