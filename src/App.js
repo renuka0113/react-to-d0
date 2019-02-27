@@ -25,18 +25,25 @@ class App extends Component {
   handleSubmit(e) {
    e.preventDefault();
    //console.log('handleSubmit called');
+   if (!this.state.newTodoDescription) { return }
    const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
-   this.setState({ todos: [...this.state.todos, newTodo] }); 
+   this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: ''});
  }
 
   toggleComplete(index) {
-
+console.log(index);
     const todos = this.state.todos.slice();
     const todo = todos[index];
     todo.isCompleted = todo.isCompleted ? false : true;
     this.setState({ todos: todos });
 
   }
+
+  deleteTodo(index){
+
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -44,15 +51,11 @@ class App extends Component {
       //Now we have to render or show the initial state of the component with the above todo list
       { this.state.todos.map( (todo, index) =>
 
-            <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={ () => this.toggleComplete(index) }/>
-          )}
+        <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={ () => this.toggleComplete(index)}/>)}
       </ul>
-      <form>
-      <form onSubmit={ (e) => this.handleSubmit(e) }/>
-           <input type="text" value={ this.state.newTodoDescription }onChange={ (e) => this.handleChange(e) }/>
-           <input type="submit" />
-         </form>
-       </div>
+       <input type="text" value={ this.state.newTodoDescription }onChange={ (e) => this.handleChange(e) }/>
+          <input onClick={ (e) => this.handleSubmit(e) } type="button" name="submit" value="Submit"/>
+</div>
     );
   }
 }
